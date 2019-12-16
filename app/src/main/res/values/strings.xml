@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Orient Exchange-Bank</string>
+    <string name="title_activity_rate">Live Buy Rates</string>
+    <string name="title_activity_brate">Live Sell Rates</string>
+    <string name="title_activity_bhistory">Buy Orders</string>
+    <string name="title_activity_whistory">Swift Orders</string>
+    <string name="title_activity_wrate">Live WireTransfer Rates</string>
+    <string name="title_activity_wiretranfer">Send Money Abroad</string>
+    <string name="title_activity_main">Login</string>
+    <string name="title_activity_place">Buy Currency / Card</string>
+    <string name="title_activity_sell_place"> Sell Currency / Card</string>
+    <string name="title_activity_order">Orders History</string>
+    <string name="title_activity_daily">sell orders</string>
+    <string name="title_activity_monthly">Monthly Report</string>
+    <string name="title_activity_logout">Monthly Report</string>
+    <string name="title_activity_resetpass">Monthly Report</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Orient Exchange</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_rate">Live Rates</string>
+    <string name="menu_placeorder">Buying Cn/Card</string>
+    <string name="menu_splaceorder">Selling Cn/Card</string>
+    <string name="menu_wireorder">Swift</string>
+    <string name="menu_dailyreport">Buy Orders</string>
+    <string name="menu_orderhistory">Order History</string>
+    <string name="menu_monthlyreport">Monthly Report</string>
+    <string name="menu_resetpass">Reset password</string>
+    <string name="menu_logout">Logout</string>
+    <string name="currency_prompt">Choose Currency</string>
+    <string name="title_activity_reset_pass">ResetPass</string>
+
+    <string-array name="currency_prompt">
+        <item>Currency</item>
+    </string-array>
+
+    <string-array name="product_prompt">
+        <item>Product</item>
+    </string-array>
+    <string name="title_activity_thankyou">ThankyouActivity</string>
+
+</resources>

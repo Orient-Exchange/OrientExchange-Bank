@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".WireOrderActivity"
+    android:orientation="vertical"
+    tools:showIn="@layout/app_bar_wireorder">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="4dp"
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Currency Details"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="@color/colorlight"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textAlignment="gravity"
+                    android:textSize="18dp" />
+                <View style="@style/Divider_horizantal" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:id="@+id/pro_tab1"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:background="@color/place_layout"
+                    android:layout_marginBottom="5dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
+
+                        <Spinner
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/spiner_curreny1"
+                            android:gravity="center"
+                            android:prompt="@string/currency_prompt"
+                            android:entries="@array/currency_prompt"></Spinner>
+
+                        <Spinner
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:id="@+id/spinner_product1"
+                            android:prompt="@array/product_prompt"
+                            android:entries="@array/product_prompt"></Spinner>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/rate1"
+                            android:gravity="center"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/currencytext"
+                            android:textColor="#fff"
+                            android:text=""/>
+                        <EditText
+                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/qty1"
+                            android:gravity="center"
+                            android:background="@drawable/currencytext"
+                            android:inputType="numberSigned"
+                            android:hint="Qty"></EditText>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="Purpose : "
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:background="@drawable/nice_path"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="18dp" />
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:layout_weight="1"
+                            android:id="@+id/purpose"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            android:background="@drawable/nice_path"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="14dp" />
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="Total Amount : "
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:layout_weight="1"
+                            android:id="@+id/total_amount"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            android:gravity="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="18dp" />
+
+                    </TableRow>
+                </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"/>
+            </LinearLayout>
+
+    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/customer_details"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Customer Details"
+                    android:textAlignment="center"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="@color/colorlight"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18dp" />
+
+                <View style="@style/Divider_horizantal" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="1dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".5"
+                        android:background="@color/place_layout"></TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/place_layout">
+
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/cname"
+                            android:gravity="center"
+                            android:inputType="textAutoComplete"
+                            android:hint="Cutomer Name"></EditText>
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:gravity="center"
+                            android:id="@+id/cnum"
+                            android:hint="Contact Number" ></EditText>
+
+                    </TableRow>
+
+                </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/login_1"
+            android:id="@+id/progress1"
+            android:layout_gravity="center"
+            android:textColor="@color/colorCurrency"
+            android:visibility="invisible" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:onClick="sub_wire"
+            android:background="@color/colorPrimary"
+            android:id="@+id/sub_order" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight=".5"></LinearLayout>
+</LinearLayout>

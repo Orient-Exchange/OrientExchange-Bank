@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/currency_exchange"
+            android:title="@string/menu_rate" />
+    </group>
+
+    <item android:title="Order">
+        <menu>
+            <group android:checkableBehavior="all">
+                <item
+                    android:id="@+id/nav_porder"
+                    android:icon="@drawable/receive_cash"
+                    android:title="@string/menu_placeorder" />
+                <item
+                    android:id="@+id/nav_sporeder"
+                    android:icon="@drawable/cash_hand1"
+                    android:title="@string/menu_splaceorder" />
+                <item
+                    android:id="@+id/nav_wireorder"
+                    android:title="@string/menu_wireorder"
+                    android:icon="@drawable/money_transfer"/>
+                <item
+                    android:id="@+id/nav_dreport"
+                    android:title="@string/menu_orderhistory"
+                    android:icon="@drawable/icon_ratings"/>
+            <!-- <item
+                android:id="@+id/nav_horder"
+                android:title="@string/menu_orderhistory" /> -->
+            </group>
+        </menu>
+    </item>
+
+   <!-- <item android:title="Report">
+        <menu>
+            <item
+                android:id="@+id/nav_dreport"
+                android:title="@string/menu_dailyreport" />
+            <item
+                android:id="@+id/nav_mreport"
+                android:title="@string/menu_monthlyreport" />
+        </menu>
+    </item> -->
+
+    <item android:title="Setting">
+        <menu>
+            <item
+                android:id="@+id/nav_reset"
+                android:title="@string/menu_resetpass"
+                android:icon="@drawable/registration"/>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="@string/menu_logout"
+                android:icon="@drawable/shutdown1"/>
+        </menu>
+    </item>
+</menu>

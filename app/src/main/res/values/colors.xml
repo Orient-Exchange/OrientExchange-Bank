@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0186B1</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorCurrency">#f5b041</color>
+    <color name="colorBuyCard">#58d68d</color>
+    <color name="colorBuycash">#48c9b0</color>
+    <color name="colorSellcash">#138d75</color>
+    <color name="divider_color">#000</color>
+    <color name="colorlight"> #909497 </color>
+    <color name="place_layout"> #d5dbdb </color>
+    <color name="white"> #fff </color>
+</resources>

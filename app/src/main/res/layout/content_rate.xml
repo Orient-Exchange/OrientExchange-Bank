@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".RateActivity"
+    android:id="@+id/tab_parent"
+    tools:showIn="@layout/app_bar_rate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".3"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:checkedButton="@+id/offer"
+                android:id="@+id/toggle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/pink_out_line"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/sell"
+                    android:background="@color/colorCurrency"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:onClick="moveTosell"
+                    android:text="Buy Rates"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:id="@+id/buy"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:onClick="moveTobuy"
+                    android:text="Sell Rates"
+                    android:textColor="#fff" />
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:id="@+id/wire"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Swift"
+                    android:onClick="moveTowire"
+                    android:textColor="#fff" />
+            </RadioGroup>
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Currency"
+                    android:layout_marginRight="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorCurrency"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="BuyCash"
+                    android:textAlignment="center"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/colorBuycash"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="BuyCard"
+                    android:textAlignment="center"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/colorBuyCard"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_0" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_0"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_0"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_1" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_1"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_1"/>
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_2" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_2"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:background="@drawable/buycardtext"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cdbuy_2"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="4dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_3" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_3"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_3"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_4" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_4"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_4"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_5" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_5"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_5"/>
+
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_6"
+                    android:layout_marginRight="10dp" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_6"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_6"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_7" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_7"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_7"/>
+
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_8" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_8"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycardtext"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cdbuy_8"/>
+
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="4dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_9" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_9"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_9"/>
+
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_10" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_10"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_10"/>
+
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_11" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_11"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_11"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_12" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_12"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_12"/>
+
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:id="@+id/cnname_13" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_13"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_13"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_14" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_14"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycardtext"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cdbuy_14"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="4dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/cnname_15" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_15"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_15"/>
+
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorCurrency"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_16" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_16"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_16"/>
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_17" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_17"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_17"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_18" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_18"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_18"/>
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorCurrency"
+                    android:id="@+id/cnname_19" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_19"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_19"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorCurrency"
+                    android:id="@+id/cnname_20" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_20"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_20"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_21" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_21"/>
+
+                <TextView android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_21"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_22" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_22"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:id="@+id/cdbuy_22"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorCurrency"
+                    android:textAlignment="center"
+                    android:id="@+id/cnname_23" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:background="@drawable/buycashtext"
+                    android:id="@+id/cnbuy_23"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/buycardtext"
+                    android:textAlignment="center"
+                    android:id="@+id/cdbuy_23"/>
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
