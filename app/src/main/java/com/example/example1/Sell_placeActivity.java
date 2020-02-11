@@ -12,12 +12,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -67,7 +70,7 @@ public class Sell_placeActivity extends AppCompatActivity
     String Branch_Add;
     TableRow bt;
     TableRow dt1;
-    TableRow dt2;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     int Count=0;
     ProgressBar p1;
     ArrayList<String> carray = new ArrayList<String>();
@@ -87,7 +90,7 @@ public class Sell_placeActivity extends AppCompatActivity
     TextView [] amount=new TextView[5];
     TextView totalAmount;
     ProgressDialog nDialog,nDialog1;
-    LinearLayout lc;
+    LinearLayout lc,mListViewName;
     EditText cname,cnum,dadd,pincode;
     RadioButton branch,bank,door;
     TextView branch_id;
@@ -118,13 +121,14 @@ public class Sell_placeActivity extends AppCompatActivity
             Intent login =new Intent(getApplicationContext(),MainActivity.class);
             startActivity(login);
         }
-        else { getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);}
+        else { getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
         nDialog = new ProgressDialog(Sell_placeActivity.this);
         nDialog.setMessage("Loading..");
         nDialog.setTitle("");
         nDialog.setIndeterminate(false);
         nDialog.setCancelable(true);
         nDialog.show();
+        }
         button=findViewById(R.id.sub_order);
         p1=findViewById(R.id.progress1);
         bt=findViewById(R.id.branch_add);
@@ -158,6 +162,25 @@ public class Sell_placeActivity extends AppCompatActivity
         branch_id.setText("Branch Name : "+Branch_Add);
         dadd=findViewById(R.id.door_add);
         pincode=findViewById(R.id.pincode);
+
+        int maxLength = 10;
+        cnum.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+
+      /*  mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mListViewName = (LinearLayout) findViewById(R.id.listViewName);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+                nDialog = new ProgressDialog(Sell_placeActivity.this);
+                nDialog.setMessage("Loading..");
+                nDialog.setTitle("");
+                nDialog.setIndeterminate(false);
+                nDialog.setCancelable(true);
+                nDialog.show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }); */
 
         spinner1[0].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -372,11 +395,21 @@ public class Sell_placeActivity extends AppCompatActivity
         lc.setVisibility(View.VISIBLE);
     }
 
+    public void refresh(View view){
+        getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+        nDialog = new ProgressDialog(Sell_placeActivity.this);
+        nDialog.setMessage("Loading..");
+        nDialog.setTitle("");
+        nDialog.setIndeterminate(false);
+        nDialog.setCancelable(true);
+        nDialog.show();
+    }
+
     public void Total_func(){
         float Tamount = (float) 0.0;
         for (int i=0;i<=Count;i++){
             if(!TextUtils.isEmpty(amount[Count].getText().toString())) {
-                Tamount = Tamount + Float.parseFloat(amount[Count].getText().toString());
+                Tamount = Tamount + Float.parseFloat(amount[i].getText().toString());
                 DecimalFormat df = new DecimalFormat("#.##");
                 totalAmount.setText(String.valueOf(df.format(Tamount)));
             }
@@ -530,7 +563,7 @@ public class Sell_placeActivity extends AppCompatActivity
                     nDialog.hide();
                     try {
                         arr = new JSONArray(s);
-                        for (int j = 0; j < arr.length() - 1; j++) {
+                        for (int j = 0; j < arr.length(); j++) {
                             JSONObject NewData = arr.getJSONObject(j);
                             String Currency = NewData.getString("currency");
                             categories.add(Currency);
@@ -629,12 +662,12 @@ public class Sell_placeActivity extends AppCompatActivity
         String edt_val= edt[Count].getText().toString();
         String curreny=spinner1[Count].getSelectedItem().toString();
         String pros=spinner2[Count].getSelectedItem().toString();
-        String name=cname.getText().toString();
-        String num=cnum.getText().toString();
-        String Total_Amount=totalAmount.getText().toString();
-        String door_add=dadd.getText().toString();
-        String pin=pincode.getText().toString();
-        String Branch=branch_id.getText().toString();
+        final String name=cname.getText().toString();
+        final String num=cnum.getText().toString();
+        final String Total_Amount=totalAmount.getText().toString();
+        final String door_add=dadd.getText().toString();
+        final String pin=pincode.getText().toString();
+        final String Branch=branch_id.getText().toString();
         for(int i=0;i<=Count;i++){
             carray.add(spinner1[i].getSelectedItem().toString());
             parray.add(spinner2[i].getSelectedItem().toString());
@@ -643,28 +676,38 @@ public class Sell_placeActivity extends AppCompatActivity
             tarray.add(amount[i].getText().toString());
         }
        // JSONArray jsArray = new JSONArray(carray)
-        if(!TextUtils.isEmpty(edt_val) && Integer.parseInt(edt_val)!=0){
-            if(!curreny.equals("Currency")) {
-                if(pros.equals("cash")) {
+        //if(!TextUtils.isEmpty(edt_val) && Integer.parseInt(edt_val)!=0){
+            //if(!curreny.equals("Currency")) {
+                //if(pros.equals("cash")) {
                     if(!name.isEmpty()){
-
                            Boolean RR=check_radiogroup();
                            if(RR){
-                               p1.setVisibility(View.VISIBLE);
-                               button.setBackground(ContextCompat.getDrawable(Sell_placeActivity.this, R.drawable.login_2));
-                               button.setText("Processing .....");
-                               getresult("https://www.orientexchange.in/bankagent/rsellcash.php",email,carray,parray,qarray,tarray,rarray,name,num,Total_Amount,door_add,pin,Branch,delivery_type);
-
+                               AlertDialog.Builder alert = new AlertDialog.Builder(Sell_placeActivity.this);
+                               alert.setTitle("");
+                               alert.setMessage("Service charges of \u20B9 50/- and GST will be applied on final invoice \n GST slab : \n  0 to 25000 => \u20B9 45 \n 25001 to 100000 => 0.18% \n 100001 to 1000000 =>\u20B9 180+0.09% (of the amount exceeding \u20B9 1lakh) \n above 1000000 =>\u20B9 990+0.018% (of the amount exceeding \u20B9 10lakh) ");
+                               alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                   public void onClick(DialogInterface dialog, int whichButton) {
+                                       p1.setVisibility(View.VISIBLE);
+                                       button.setBackground(ContextCompat.getDrawable(Sell_placeActivity.this, R.drawable.login_2));
+                                       button.setText("Processing .....");
+                                       getresult("https://www.orientexchange.in/bankagent/rsellcash.php",email,carray,parray,qarray,tarray,rarray,name,num,Total_Amount,door_add,pin,Branch,delivery_type);
+                                   }
+                               });
+                              /* alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                   public void onClick(DialogInterface dialog, int whichButton) {
+                                       // Canceled.
+                                   }
+                               }); */
+                               alert.show();
                            }else{
                               AlertDialog alertDialog = new AlertDialog.Builder(Sell_placeActivity.this).create();
                               alertDialog.setTitle("Login Status");
                               alertDialog.setMessage("Please Provide Customer details!"); alertDialog.show();
                            }
-
                     }else {
                         cname.setError("Enter customer name");
                     }
-                }else {
+               /* }else {
                     ((TextView)spinner2[Count].getSelectedView()).setError("Select Product");
                 }
             }else {
@@ -672,7 +715,7 @@ public class Sell_placeActivity extends AppCompatActivity
             }
         }else {
             edt[Count].setError("Enter Quantity");
-        }
+        } */
     }
 
     //this method is actually fetching the json string

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ import android.support.constraint.ConstraintLayout;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,6 +29,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,14 +54,25 @@ import java.util.TimerTask;
 
 import android.widget.Button;
 
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
+
 import static com.example.example1.MainActivity.Email;
+import static com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE;
 
 public class WireRateActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView [] tname=new TextView[24];
     TextView [] tcnbuy=new TextView[24];
     String email="";
-    ConstraintLayout tab;
+    private static final int MY_REQUEST_CODE = 0;
+    AppUpdateManager appUpdateManager ;
+    Task<AppUpdateInfo> appUpdateInfoTask ;
+    LinearLayout mListViewName;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     ProgressDialog nDialog;
     Timer timer;
 
@@ -88,7 +102,49 @@ public class WireRateActivity extends AppCompatActivity
             }
         }
 
-        tab =  findViewById(R.id.tab_parent);
+       /* mSwipeRefreshLayout = findViewById(R.id.tab_parent);
+        mListViewName = (LinearLayout) findViewById(R.id.listViewName);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+                nDialog = new ProgressDialog(WireRateActivity.this);
+                nDialog.setMessage("Loading..");
+                nDialog.setTitle("");
+                nDialog.setIndeterminate(false);
+                nDialog.setCancelable(true);
+                nDialog.show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }); */
+        //start of google update code
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+
+        // Returns an intent object that you use to check for an update.
+        appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    // For a flexible update, use AppUpdateType.FLEXIBLE
+                    && appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)) {
+                // Request the update.
+                try {
+                    appUpdateManager.startUpdateFlowForResult(
+                            // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                            appUpdateInfo,
+                            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                            IMMEDIATE,
+                            // The current activity making the update request.
+                            this,
+                            // Include a request code to later monitor this update request.
+                            MY_REQUEST_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //end of google update code
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -123,6 +179,31 @@ public class WireRateActivity extends AppCompatActivity
         tname[22]=findViewById(R.id.cnname_22);tcnbuy[22]=findViewById(R.id.cnbuy_22);
         tname[23]=findViewById(R.id.cnname_23);tcnbuy[23]=findViewById(R.id.cnbuy_23);
         get_fb();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+                            if (appUpdateInfo.updateAvailability()
+                                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                // If an in-app update is already running, resume the update.
+                                try {
+
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            IMMEDIATE,
+                                            this,
+                                            MY_REQUEST_CODE);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
     }
 
     @Override
@@ -201,6 +282,16 @@ public class WireRateActivity extends AppCompatActivity
         });
 
         return builder;
+    }
+
+    public void refresh(View view){
+        getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+        nDialog = new ProgressDialog(WireRateActivity.this);
+        nDialog.setMessage("Loading..");
+        nDialog.setTitle("");
+        nDialog.setIndeterminate(false);
+        nDialog.setCancelable(true);
+        nDialog.show();
     }
 
     public void logout_click(){

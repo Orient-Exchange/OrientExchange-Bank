@@ -11,6 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,7 +64,8 @@ public class Ownsell_placeActivity extends AppCompatActivity
     String email;
     TableRow bt;
     TableRow dt1;
-    TableRow dt2;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    LinearLayout mListViewName;
     int Count=0;
     ProgressBar p1;
     ArrayList<String> carray = new ArrayList<String>();
@@ -84,7 +86,7 @@ public class Ownsell_placeActivity extends AppCompatActivity
     TextView totalAmount;
     ProgressDialog nDialog,nDialog1;
     LinearLayout lc;
-    EditText cname,cnum,dadd,pincode;
+    EditText cname,cnum,dadd,pincode,Remark;
     RadioButton branch,bank,door;
     TextView branch_id;
     String delivery_type="";
@@ -121,6 +123,7 @@ public class Ownsell_placeActivity extends AppCompatActivity
         p1=findViewById(R.id.progress1);
         bt=findViewById(R.id.branch_add);
         dt1=findViewById(R.id.door_add1);
+        Remark=findViewById(R.id.remarks);
       //  dt2=findViewById(R.id.door_add2);
         spinner1[0]=findViewById(R.id.spiner_curreny1); spinner1[1]=findViewById(R.id.spiner_curreny2);
         spinner1[2]=findViewById(R.id.spiner_curreny3); spinner1[3]=findViewById(R.id.spiner_curreny4);
@@ -150,6 +153,21 @@ public class Ownsell_placeActivity extends AppCompatActivity
         dadd=findViewById(R.id.door_add);
         pincode=findViewById(R.id.pincode);
 
+      /*  mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mListViewName = (LinearLayout) findViewById(R.id.listViewName);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+                nDialog = new ProgressDialog(Ownsell_placeActivity.this);
+                nDialog.setMessage("Loading..");
+                nDialog.setTitle("");
+                nDialog.setIndeterminate(false);
+                nDialog.setCancelable(true);
+                nDialog.show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }); */
         spinner1[0].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -367,7 +385,7 @@ public class Ownsell_placeActivity extends AppCompatActivity
     public void Total_func(){
         float Tamount = (float) 0.0;
         for (int i=0;i<=Count;i++){
-            Tamount=Tamount+Float.parseFloat(amount[Count].getText().toString());
+            Tamount=Tamount+Float.parseFloat(amount[i].getText().toString());
             DecimalFormat df = new DecimalFormat("#.##");
             totalAmount.setText(String.valueOf(df.format(Tamount)));
         }
@@ -520,7 +538,7 @@ public class Ownsell_placeActivity extends AppCompatActivity
                     nDialog.hide();
                     try {
                         arr = new JSONArray(s);
-                        for (int j = 0; j < arr.length() - 1; j++) {
+                        for (int j = 0; j < arr.length(); j++) {
                             JSONObject NewData = arr.getJSONObject(j);
                             String Currency = NewData.getString("currency");
                             categories.add(Currency);
@@ -579,12 +597,22 @@ public class Ownsell_placeActivity extends AppCompatActivity
         GetJSON getJSON = new GetJSON();
         getJSON.execute();
     }
+    public void refresh(View view){
+        getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+        nDialog = new ProgressDialog(Ownsell_placeActivity.this);
+        nDialog.setMessage("Loading..");
+        nDialog.setTitle("");
+        nDialog.setIndeterminate(false);
+        nDialog.setCancelable(true);
+        nDialog.show();
+    }
 
     public void submit_func(View view){
         String edt_val= edt[Count].getText().toString();
         String curreny=spinner1[Count].getSelectedItem().toString();
         String pros=spinner2[Count].getSelectedItem().toString();
         String Total_Amount=totalAmount.getText().toString();
+        String remark=Remark.getText().toString();
 
         for(int i=0;i<=Count;i++){
             carray.add(spinner1[i].getSelectedItem().toString());
@@ -600,7 +628,7 @@ public class Ownsell_placeActivity extends AppCompatActivity
                     p1.setVisibility(View.VISIBLE);
                     button.setBackground(ContextCompat.getDrawable(Ownsell_placeActivity.this, R.drawable.login_2));
                     button.setText("Processing .....");
-                    getresult("https://www.orientexchange.in/bankagent/sellcash.php",email,carray,parray,qarray,tarray,rarray,Total_Amount,delivery_type);
+                    getresult("https://www.orientexchange.in/bankagent/sellcash.php",email,carray,parray,qarray,tarray,rarray,Total_Amount,delivery_type,remark);
                 }else {
                     ((TextView)spinner2[Count].getSelectedView()).setError("Select Product");
                 }
@@ -613,7 +641,7 @@ public class Ownsell_placeActivity extends AppCompatActivity
     }
 
     //this method is actually fetching the json string
-    private void getresult(final String urlWebService, final String user_email, final ArrayList<String> ccode, final ArrayList<String> ppro, final ArrayList<String> qnt, final ArrayList<String> inr, final ArrayList<String> crate, final String TotalInr, final String Delivery) {
+    private void getresult(final String urlWebService, final String user_email, final ArrayList<String> ccode, final ArrayList<String> ppro, final ArrayList<String> qnt, final ArrayList<String> inr, final ArrayList<String> crate, final String TotalInr, final String Delivery,final String Notes) {
         /*
          * As fetching the json string is a network operation
          * And we cannot perform a network operation in main thread
@@ -820,7 +848,8 @@ public class Ownsell_placeActivity extends AppCompatActivity
                             +URLEncoder.encode("sellproduct","UTF-8")+"="+URLEncoder.encode(obj2.toString(),"UTF-8") +"&"
                             +URLEncoder.encode("sellqty","UTF-8")+"="+URLEncoder.encode(obj3.toString(),"UTF-8") +"&"
                             +URLEncoder.encode("coveredrate","UTF-8")+"="+URLEncoder.encode(obj4.toString(),"UTF-8") +"&"
-                            +URLEncoder.encode("inr","UTF-8")+"="+URLEncoder.encode(obj5.toString(),"UTF-8");
+                            +URLEncoder.encode("inr","UTF-8")+"="+URLEncoder.encode(obj5.toString(),"UTF-8")+"&"
+                            +URLEncoder.encode("remarks","UTF-8")+"="+URLEncoder.encode(Notes,"UTF-8");
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
                     bufferedWriter.close();

@@ -133,6 +133,24 @@
                 android:textSize="20dp"></TextView>
 
         </TableRow>
+        <!--<TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GST info : "
+                android:textSize="18dp"
+                android:textColor="@color/colorSellcash"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_information"
+                android:onClick="alert_gst"/>
+        </TableRow> -->
     </TableLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,41 +160,43 @@
         android:background="@drawable/nice_path"
         android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:orientation="vertical"
             android:id="@+id/currency_field">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Currency"
+                android:text="Cn"
                 android:textSize="16dp"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
                 android:textColor="#34495e"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"></TextView>
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:orientation="vertical"
             android:id="@+id/product_field">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product"
+                android:text="Pro"
                 android:textSize="16dp"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
                 android:textColor=" #34495e "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"></TextView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -185,17 +205,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="quantity"
+                android:text="qty"
                 android:textSize="16dp"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
                 android:textColor="#34495e "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"></TextView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:orientation="vertical"
             android:id="@+id/rate_field">
 
@@ -204,13 +225,14 @@
                 android:layout_height="wrap_content"
                 android:text="Rate"
                 android:textSize="16dp"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
                 android:textColor="#34495e "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"></TextView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -221,11 +243,11 @@
                 android:layout_height="wrap_content"
                 android:text="Amount"
                 android:textSize="16dp"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
                 android:textColor="#34495e "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"></TextView>
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout

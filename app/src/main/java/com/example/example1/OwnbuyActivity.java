@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,8 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
     String email;
     TableRow bt;
     TableRow dt1;
-    TableRow dt2;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    LinearLayout mListViewName;
     int Count=0;
     ProgressBar p1;
     ArrayList<String> carray = new ArrayList<String>();
@@ -82,7 +84,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
     TextView totalAmount;
     ProgressDialog nDialog,nDialog1;
     LinearLayout lc;
-    EditText cname,cnum,dadd,pincode;
+    EditText cname,cnum,dadd,pincode,Remark;
     RadioButton branch,bank,door;
     TextView branch_id;
     String delivery_type="";
@@ -119,6 +121,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
         p1=findViewById(R.id.progress1);
         bt=findViewById(R.id.branch_add);
         dt1=findViewById(R.id.door_add1);
+        Remark=findViewById(R.id.remarks);
         //dt2=findViewById(R.id.door_add2);
         spinner1[0]=findViewById(R.id.spiner_curreny1); spinner1[1]=findViewById(R.id.spiner_curreny2);
         spinner1[2]=findViewById(R.id.spiner_curreny3); spinner1[3]=findViewById(R.id.spiner_curreny4);
@@ -148,6 +151,21 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
         dadd=findViewById(R.id.door_add);
         pincode=findViewById(R.id.pincode);
 
+        /*mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mListViewName = (LinearLayout) findViewById(R.id.listViewName);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+                nDialog = new ProgressDialog(OwnbuyActivity.this);
+                nDialog.setMessage("Loading..");
+                nDialog.setTitle("");
+                nDialog.setIndeterminate(false);
+                nDialog.setCancelable(true);
+                nDialog.show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }); */
         spinner1[0].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -214,7 +232,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                Total_func();
+
             }
         });
     }
@@ -266,6 +284,16 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
         return super.onOptionsItemSelected(item);
     }
     @SuppressWarnings("StatementWithEmptyBody")
+
+    public void refresh(View view){
+        getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+        nDialog = new ProgressDialog(OwnbuyActivity.this);
+        nDialog.setMessage("Loading..");
+        nDialog.setTitle("");
+        nDialog.setIndeterminate(false);
+        nDialog.setCancelable(true);
+        nDialog.show();
+    }
 
     public void logout_click(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -363,12 +391,12 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
     }
 
     public void Total_func(){
-        float Tamount = (float) 0.0;
-        for (int i=0;i<=Count;i++){
-            Tamount=Tamount+Float.parseFloat(amount[Count].getText().toString());
-            DecimalFormat df = new DecimalFormat("#.##");
-            totalAmount.setText(String.valueOf(df.format(Tamount)));
+        float Tamount = 0;
+        for (int j=0;j<=Count;j++){
+            Tamount=Tamount+Float.parseFloat(amount[j].getText().toString());
         }
+        DecimalFormat df = new DecimalFormat("#.##");
+        totalAmount.setText(String.valueOf(df.format(Tamount)));
     }
 
     public void add_more(View view){
@@ -452,7 +480,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                         @Override
                         public void afterTextChanged(Editable s) {
                             // TODO Auto-generated method stub
-                            Total_func();
+
                         }
                     });
 
@@ -474,7 +502,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
 
     public void remove_product(View view){
         if(Count >0){
-            Log.i(" Add Count", String.valueOf(Count));
+         //   Log.i(" Add Count", String.valueOf(Count));
             tab[Count].setVisibility(View.INVISIBLE);
             Count --;
             edt[Count].setEnabled(true);
@@ -518,7 +546,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                     nDialog.hide();
                     try {
                         arr = new JSONArray(s);
-                        for (int j = 0; j < arr.length() - 1; j++) {
+                        for (int j = 0; j < arr.length(); j++) {
                             JSONObject NewData = arr.getJSONObject(j);
                             String Currency = NewData.getString("currency");
                             categories.add(Currency);
@@ -583,6 +611,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
         String curreny=spinner1[Count].getSelectedItem().toString();
         String pros=spinner2[Count].getSelectedItem().toString();
         String Total_Amount=totalAmount.getText().toString();
+        String remarks=Remark.getText().toString();
 
         for(int i=0;i<=Count;i++){
             carray.add(spinner1[i].getSelectedItem().toString());
@@ -598,7 +627,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                     p1.setVisibility(View.VISIBLE);
                     button.setBackground(ContextCompat.getDrawable(OwnbuyActivity.this, R.drawable.login_2));
                     button.setText("Processing .....");
-                    getresult("https://www.orientexchange.in/bankagent/sellcash.php",email,carray,parray,qarray,tarray,rarray,Total_Amount,delivery_type);
+                    getresult("https://www.orientexchange.in/bankagent/buycash.php",email,carray,parray,qarray,tarray,rarray,Total_Amount,delivery_type,remarks);
                 }else {
                     ((TextView)spinner2[Count].getSelectedView()).setError("Select Product");
                 }
@@ -611,7 +640,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
     }
 
     //this method is actually fetching the json string
-    private void getresult(final String urlWebService, final String user_email, final ArrayList<String> ccode, final ArrayList<String> ppro, final ArrayList<String> qnt, final ArrayList<String> inr, final ArrayList<String> crate, final String TotalInr, final String Delivery) {
+    private void getresult(final String urlWebService, final String user_email, final ArrayList<String> ccode, final ArrayList<String> ppro, final ArrayList<String> qnt, final ArrayList<String> inr, final ArrayList<String> crate, final String TotalInr, final String Delivery,final String Notes) {
         /*
          * As fetching the json string is a network operation
          * And we cannot perform a network operation in main thread
@@ -639,7 +668,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                 super.onPostExecute(s);
                 if(!s.isEmpty()) {
                     Toast.makeText(OwnbuyActivity.this, s, Toast.LENGTH_SHORT).show();
-                    Log.i("Response",s);
+
                     p1.setVisibility(View.INVISIBLE);
                     button.setBackground(ContextCompat.getDrawable(OwnbuyActivity.this, R.drawable.sellcashtext));
                     button.setText("Submit");
@@ -653,14 +682,14 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                         alert.setMessage("You can Only place order between 10:15am to 5:30pm ");
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
                         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Canceled.
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
@@ -672,14 +701,14 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                         alert.setMessage("You can Only place order between 10:15am to 12:30pm ");
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
                         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Canceled.
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
@@ -691,14 +720,14 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                         alert.setMessage("Oops! You cant place order on sunday ");
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
                         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Canceled.
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
@@ -710,14 +739,14 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                         alert.setMessage("Error in Placing Order!");
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
                         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Canceled.
-                                Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                                Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                                 startActivity(i);
                             }
                         });
@@ -736,14 +765,14 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                     alert.setMessage("Error in Placing Order!");
                     alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                            Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                             startActivity(i);
                         }
                     });
                     alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             // Canceled.
-                            Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                            Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                             startActivity(i);
                         }
                     });
@@ -751,7 +780,7 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                     new Timer().scheduleAtFixedRate(new TimerTask(){
                         @Override
                         public void run(){
-                            Intent i = new Intent(getApplicationContext(),Sell_placeActivity.class);
+                            Intent i = new Intent(getApplicationContext(),OwnbuyActivity.class);
                             startActivity(i);
                         }
                     },0,5000);
@@ -814,7 +843,8 @@ public class OwnbuyActivity extends AppCompatActivity  implements NavigationView
                             +URLEncoder.encode("sellproduct","UTF-8")+"="+URLEncoder.encode(obj2.toString(),"UTF-8") +"&"
                             +URLEncoder.encode("sellqty","UTF-8")+"="+URLEncoder.encode(obj3.toString(),"UTF-8") +"&"
                             +URLEncoder.encode("coveredrate","UTF-8")+"="+URLEncoder.encode(obj4.toString(),"UTF-8") +"&"
-                            +URLEncoder.encode("inr","UTF-8")+"="+URLEncoder.encode(obj5.toString(),"UTF-8");
+                            +URLEncoder.encode("inr","UTF-8")+"="+URLEncoder.encode(obj5.toString(),"UTF-8")+"&"
+                            +URLEncoder.encode("remarks","UTF-8")+"="+URLEncoder.encode(Notes,"UTF-8");
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
                     bufferedWriter.close();

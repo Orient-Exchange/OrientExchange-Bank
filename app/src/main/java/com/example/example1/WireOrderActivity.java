@@ -11,6 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,6 +70,8 @@ public class WireOrderActivity extends AppCompatActivity
     TextView tot;
     int sppos=0;
     Button button;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    LinearLayout mListViewName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,14 +103,32 @@ public class WireOrderActivity extends AppCompatActivity
             Intent login =new Intent(getApplicationContext(),MainActivity.class);
             startActivity(login);
         }
-        else { getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);}
+        else {
+            getJSON("https://www.orientexchange.in/bankagent/request_new.php", email);
 
-        nDialog = new ProgressDialog(WireOrderActivity.this);
-        nDialog.setMessage("Loading..");
-        nDialog.setTitle("");
-        nDialog.setIndeterminate(false);
-        nDialog.setCancelable(true);
-        nDialog.show();
+            nDialog = new ProgressDialog(WireOrderActivity.this);
+            nDialog.setMessage("Loading..");
+            nDialog.setTitle("");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(true);
+            nDialog.show();
+        }
+
+        /*mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mListViewName = (LinearLayout) findViewById(R.id.listViewName);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+                nDialog = new ProgressDialog(WireOrderActivity.this);
+                nDialog.setMessage("Loading..");
+                nDialog.setTitle("");
+                nDialog.setIndeterminate(false);
+                nDialog.setCancelable(true);
+                nDialog.show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }); */
 
         ed1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -318,7 +340,7 @@ public class WireOrderActivity extends AppCompatActivity
                     nDialog.hide();
                     try {
                         arr = new JSONArray(s);
-                        for (int j = 0; j < arr.length() - 1; j++) {
+                        for (int j = 0; j < arr.length(); j++) {
                             JSONObject NewData = arr.getJSONObject(j);
                             String Currency = NewData.getString("currency");
                             categories.add(Currency);
@@ -332,6 +354,7 @@ public class WireOrderActivity extends AppCompatActivity
                     }
                 }
             }
+
             //in this method we are fetching the json string
             @Override
             protected String doInBackground(String... params) {
@@ -557,30 +580,53 @@ public class WireOrderActivity extends AppCompatActivity
         getresult.execute();
     }
 
+    public void refresh(View view){
+        getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+        nDialog = new ProgressDialog(WireOrderActivity.this);
+        nDialog.setMessage("Loading..");
+        nDialog.setTitle("");
+        nDialog.setIndeterminate(false);
+        nDialog.setCancelable(true);
+        nDialog.show();
+    }
+
     public void sub_wire(View view){
-        String quantity=ed1.getText().toString();
-        String cname=ed2.getText().toString();
-        String cnum=ed3.getText().toString();
-        String curreny=sp1.getSelectedItem().toString();
-        String total=tot.getText().toString();
-        String purpose=purp.getText().toString();
-        String lr=rates.getText().toString();
-        if(sppos != 0 && !TextUtils.isEmpty(lr)){
-            if(!TextUtils.isEmpty(quantity)){
-                if(!TextUtils.isEmpty(purpose)) {
+        final String quantity=ed1.getText().toString();
+        final String cname=ed2.getText().toString();
+        final String cnum=ed3.getText().toString();
+        final String curreny=sp1.getSelectedItem().toString();
+        final String total=tot.getText().toString();
+        final String purpose=purp.getText().toString();
+        final String lr=rates.getText().toString();
+        //if(sppos != 0 && !TextUtils.isEmpty(lr)){
+           // if(!TextUtils.isEmpty(quantity)){
+               // if(!TextUtils.isEmpty(purpose)) {
                     if (!TextUtils.isEmpty(cname)) {
                         if (!TextUtils.isEmpty(cnum) && cnum.length() == 10) {
-                            p1.setVisibility(View.VISIBLE);
-                            button.setBackground(ContextCompat.getDrawable(WireOrderActivity.this, R.drawable.login_2));
-                            button.setText("Processing .....");
-                            getresult("https://www.orientexchange.in/bankagent/wireorder.php", email, curreny, lr, quantity, total, cname, cnum,purpose);
+                            AlertDialog.Builder alert = new AlertDialog.Builder(WireOrderActivity.this);
+                            alert.setTitle("");
+                            alert.setMessage("Transaction fees of \u20B9 200/- and GST on transaction value and transaction fees or extra \n GST slab : \n  0 to 25000 => \u20B9 45 \n 25001 to 100000 => 0.18% \n 100001 to 1000000 =>\u20B9 180+0.09% (of the amount exceeding \u20B9 1lakh) \n above 1000000 =>\u20B9 990+0.018% (of the amount exceeding \u20B9 10lakh) ");
+                            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    p1.setVisibility(View.VISIBLE);
+                                    button.setBackground(ContextCompat.getDrawable(WireOrderActivity.this, R.drawable.login_2));
+                                    button.setText("Processing .....");
+                                    getresult("https://www.orientexchange.in/bankagent/wireorder.php", email, curreny, lr, quantity, total, cname, cnum,purpose);
+                                }
+                            });
+                            /*alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // Canceled.
+                                }
+                            }); */
+                            alert.show();
                         } else {
                             ed3.setError("Enter Customer Number");
                         }
                     } else {
                         ed2.setError("Enter Customer Name");
                     }
-                }else {
+              /*  }else {
                     purp.setError("Provide purpose");
                 }
             }
@@ -589,7 +635,7 @@ public class WireOrderActivity extends AppCompatActivity
             }
         }else {
             ((TextView)sp1.getSelectedView()).setError("Select valid Currency code");
-        }
+        } */
     }
 
     public void call_func(){

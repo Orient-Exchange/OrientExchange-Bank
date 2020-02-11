@@ -397,4 +397,17 @@ LinearLayout layout_info;
         callIntent.setData(Uri.parse("tel:+91-8884734422"));
         startActivity(callIntent);
     }
+    public void alert_gst(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("GST information");
+        builder.setMessage(" 0 to 25000 => \u20B9 45 \n 25001 to 100000 => 0.18% \n 100001 to 1000000 =>\u20B9 180+0.09% (of the amount exceeding \u20B9 1lakh) \n above 1000000 =>\u20B9 990+0.018% (of the amount exceeding \u20B9 10lakh) ");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // finish();
+            }
+        });
+        builder.show();
+    }
 }

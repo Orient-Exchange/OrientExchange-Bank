@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +9,11 @@
     tools:context=".BuyRateActivity"
     android:id="@+id/tab_parent"
     tools:showIn="@layout/app_bar_buy">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/listViewName"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,7 +26,8 @@
             <RadioGroup
                 android:checkedButton="@+id/offer"
                 android:id="@+id/toggle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -74,36 +78,104 @@
                     android:onClick="moveTowire"
                     android:textColor="#fff" />
             </RadioGroup>
-
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:layout_weight=".5"
+                android:layout_gravity="center"
+                android:src="@drawable/icons_refresh"
+                android:onClick="refresh"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"/>
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
         android:layout_weight="4">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bluebackground"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingRight="3dp"
+            android:paddingLeft="3dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight=".5" />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Currency"
+                android:layout_marginRight="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorCurrency"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20dp" />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight=".2" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:text="Sell Cash"
+                android:layout_marginRight="4dp"
+                android:textColor="@color/colorCurrency"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight=".5" />
+        </TableRow>
+        </TableLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
         <TableLayout
             android:id="@+id/table"
             android:layout_width="match_parent"
-           android:layout_height="match_parent"
+           android:layout_height="wrap_content"
+            android:background="@color/bluebackground"
             android:paddingBottom="5dp"
             android:paddingTop="5dp">
 
-            <TableRow
+         <!--   <TableRow
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Currency"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
@@ -113,15 +185,16 @@
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
-                    android:layout_weight=".5" />
+                    android:layout_weight=".2" />
 
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+
                     android:text="Sell Cash"
                     android:layout_marginRight="4dp"
-                    android:textColor="@color/colorBuycash"
+                    android:textColor="@color/colorCurrency"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="20dp" />
 
@@ -129,7 +202,7 @@
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight=".5" />
-            </TableRow>
+            </TableRow> -->
 
             <TableRow
                 android:layout_height="wrap_content"
@@ -138,12 +211,16 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:layout_marginRight="4dp"
                     android:id="@+id/cnname_0" />
@@ -151,7 +228,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:textSize="20dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     android:textAlignment="center"
@@ -172,13 +249,17 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textSize="20dp"
                     android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:id="@+id/cnname_1" />
                 <TextView
@@ -188,7 +269,7 @@
                     android:textSize="20dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_1"/>
@@ -204,13 +285,17 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:textSize="20dp"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:id="@+id/cnname_2" />
                 <TextView
@@ -221,7 +306,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_2"/>
                 <TextView
@@ -236,12 +321,16 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:layout_marginRight="4dp"
                     android:id="@+id/cnname_3" />
@@ -252,7 +341,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_3"/>
@@ -269,12 +358,16 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textSize="20dp"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
                     android:id="@+id/cnname_4" />
@@ -286,7 +379,7 @@
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_4"/>
 
@@ -302,13 +395,17 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textSize="20dp"
                     android:textAlignment="center"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:id="@+id/cnname_5" />
                 <TextView
@@ -317,7 +414,7 @@
                     android:textSize="20dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/buycashtext"
@@ -335,11 +432,15 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:textAlignment="center"
                     android:id="@+id/cnname_6"
@@ -350,7 +451,7 @@
                     android:textSize="20dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/buycashtext"
@@ -369,11 +470,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:textAlignment="center"
                     android:layout_marginRight="3dp"
@@ -386,7 +491,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="3dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_7"/>
 
@@ -401,11 +506,15 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
@@ -418,7 +527,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_8"/>
                 <TextView
@@ -432,11 +541,15 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
@@ -448,7 +561,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_9"/>
@@ -463,11 +576,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
@@ -480,7 +597,7 @@
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_10"/>
                 <TextView
@@ -494,12 +611,16 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textSize="20dp"
+                    android:background="@drawable/buycashtext"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
                     android:id="@+id/cnname_11" />
@@ -511,7 +632,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_11"/>
                 <TextView
@@ -527,11 +648,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -543,7 +668,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_12"/>
@@ -559,11 +684,15 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
                     android:textSize="20dp"
@@ -576,7 +705,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_13"/>
                 <TextView
@@ -590,11 +719,15 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
@@ -606,7 +739,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_14"/>
@@ -621,13 +754,17 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
+                    android:background="@drawable/buycashtext"
                     android:textSize="20dp"
                     android:id="@+id/cnname_15" />
                 <TextView
@@ -638,7 +775,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_15"/>
                 <TextView
@@ -652,11 +789,15 @@
                 android:paddingRight="3dp"
                 android:paddingLeft="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -668,7 +809,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_16"/>
@@ -683,11 +824,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -700,7 +845,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_17"/>
                 <TextView
@@ -714,11 +859,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -730,7 +879,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_18"/>
@@ -745,11 +894,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
@@ -763,7 +916,7 @@
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/buycashtext"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:id="@+id/cnbuy_19"/>
                 <TextView
                     android:layout_height="match_parent"
@@ -776,11 +929,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
                     android:textSize="20dp"
@@ -794,7 +951,7 @@
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:id="@+id/cnbuy_20"/>
                 <TextView
                     android:layout_height="match_parent"
@@ -807,11 +964,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -824,7 +985,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="center"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_21"/>
                 <TextView
@@ -838,11 +999,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -854,7 +1019,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:textAlignment="center"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_22"/>
@@ -869,11 +1034,15 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_width="match_parent">
-
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5" />
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/colorCurrency"
+                    android:textColor="@color/bluebackground"
+                    android:background="@drawable/buycashtext"
                     android:layout_marginRight="4dp"
                     android:textSize="20dp"
                     android:textAlignment="center"
@@ -887,7 +1056,7 @@
                     android:paddingBottom="2dp"
                     android:layout_marginRight="4dp"
                     android:textAlignment="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/bluebackground"
                     android:background="@drawable/buycashtext"
                     android:id="@+id/cnbuy_23"/>
                 <TextView
@@ -900,4 +1069,4 @@
         </ScrollView>
     </LinearLayout>
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

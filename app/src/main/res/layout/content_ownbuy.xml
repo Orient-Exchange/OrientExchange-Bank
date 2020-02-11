@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".OwnbuyActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/app_bar_ownbuy">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Sell_placeActivity"
     android:orientation="vertical"
-    tools:showIn="@layout/app_bar_ownbuy">
+    android:id="@+id/listViewName">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +28,8 @@
         <RadioGroup
             android:checkedButton="@+id/offer"
             android:id="@+id/toggle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="30dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
@@ -57,7 +66,17 @@
                 android:text="Referal"
                 android:textColor="#fff" />
         </RadioGroup>
-
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_weight=".5"
+            android:layout_gravity="center"
+            android:src="@drawable/icons_refresh"
+            android:onClick="refresh"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -455,7 +474,26 @@
                 android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".3">
 
+        <EditText
+            android:id="@+id/remarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Enter your Remarks"
+            android:fontFamily="sans-serif-condensed"
+            android:background="#d3d7b6"
+            android:minLines="2"
+            android:maxLines="3"
+            android:scrollbars="vertical"
+            android:inputType="textMultiLine" />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -488,6 +526,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>
+</RelativeLayout>

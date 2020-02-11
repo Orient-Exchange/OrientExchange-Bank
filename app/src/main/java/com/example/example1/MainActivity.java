@@ -25,6 +25,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.OrientExchange.example1.ForgotActivity;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -171,6 +173,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
+    public void forgot(View view){
+        isConnected(MainActivity.this);
+        if(!isConnected(MainActivity.this)) buildDialog(MainActivity.this).show();
+        else {
+            Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://www.orientexchange.in/bank/forgotpassword.php"));
+            startActivity(viewIntent);
+        }
+    }
 
     public void GetData(){
         TempName = name.getText().toString();
@@ -286,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
         isConnected(MainActivity.this);
         if(!isConnected(MainActivity.this)) buildDialog(MainActivity.this).show();
         else {
-            Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://www.orientexchange.in/bank/registration.php"));
+            Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("https://www.orientexchange.in/bank/register.php"));
             startActivity(viewIntent);
         }
     }

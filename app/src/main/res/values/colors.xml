@@ -11,4 +11,5 @@
     <color name="colorlight"> #909497 </color>
     <color name="place_layout"> #d5dbdb </color>
     <color name="white"> #fff </color>
+    <color name="bluebackground">#34495E</color>
 </resources>

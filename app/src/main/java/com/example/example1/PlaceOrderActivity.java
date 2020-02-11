@@ -13,12 +13,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -142,6 +144,9 @@ LinearLayout lc;
         branch=findViewById(R.id.branch_select);
         dt1=findViewById(R.id.door_add1);
         //dt2=findViewById(R.id.door_add2);
+        int maxLength = 10;
+        cnum.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
+
         p1=findViewById(R.id.progress1);
         branch_id=findViewById(R.id.branch_name);
         branch_id.setText("Branch Name : "+Branch_Add);
@@ -165,6 +170,22 @@ LinearLayout lc;
         rates[2]=findViewById(R.id.rate3); amount[2]=findViewById(R.id.total3);
         rates[3]=findViewById(R.id.rate4); amount[3]=findViewById(R.id.total4);
         rates[4]=findViewById(R.id.rate5); amount[4]=findViewById(R.id.total5);
+
+       /* mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mListViewName = (LinearLayout) findViewById(R.id.listViewName);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+                nDialog = new ProgressDialog(PlaceOrderActivity.this);
+                nDialog.setMessage("Loading..");
+                nDialog.setTitle("");
+                nDialog.setIndeterminate(false);
+                nDialog.setCancelable(true);
+                nDialog.show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }); */
 
         lc=findViewById(R.id.customer_details);
         spinner1[0].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -330,7 +351,6 @@ LinearLayout lc;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("");
         builder.setMessage("Are you sure want to Logout?");
-
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
@@ -421,11 +441,21 @@ LinearLayout lc;
         lc.setVisibility(View.VISIBLE);
     }
 
+    public void refresh(View view){
+        getJSON("https://www.orientexchange.in/bankagent/request_new.php",email);
+        nDialog = new ProgressDialog(PlaceOrderActivity.this);
+        nDialog.setMessage("Loading..");
+        nDialog.setTitle("");
+        nDialog.setIndeterminate(false);
+        nDialog.setCancelable(true);
+        nDialog.show();
+    }
+
     public void Total_func(){
         float Tamount = (float) 0.0;
         for (int i=0;i<=Count;i++){
             if(!TextUtils.isEmpty(amount[Count].getText().toString())) {
-                Tamount = Tamount + Float.parseFloat(amount[Count].getText().toString());
+                Tamount = Tamount + Float.parseFloat(amount[i].getText().toString());
                 DecimalFormat df = new DecimalFormat("#.##");
                 totalAmount.setText(String.valueOf(df.format(Tamount)));
             }
@@ -590,7 +620,7 @@ LinearLayout lc;
                     nDialog.hide();
                     try {
                         arr = new JSONArray(s);
-                        for (int j = 0; j < arr.length() - 1; j++) {
+                        for (int j = 0; j < arr.length(); j++) {
                             JSONObject NewData = arr.getJSONObject(j);
                             String Currency = NewData.getString("currency");
                             categories.add(Currency);
@@ -694,42 +724,52 @@ LinearLayout lc;
         String edt_val= edt[Count].getText().toString();
         String curreny=spinner1[Count].getSelectedItem().toString();
         String pros=spinner2[Count].getSelectedItem().toString();
-       // Toast.makeText(this, pros, Toast.LENGTH_SHORT).show();
-        String name=cname.getText().toString();
-        String num=cnum.getText().toString();
-        String Total_Amount=totalAmount.getText().toString();
-        String door_add=dadd.getText().toString();
-        String pin=pincode.getText().toString();
-        String Branch=branch_id.getText().toString();
-        for(int i=0;i<=Count;i++){
+        final String name=cname.getText().toString();
+        final String num=cnum.getText().toString();
+        final String Total_Amount=totalAmount.getText().toString();
+        final String door_add=dadd.getText().toString();
+        final String pin=pincode.getText().toString();
+        final String Branch=branch_id.getText().toString();
+        for(int i=0;i<=Count;i++) {
             carray.add(spinner1[i].getSelectedItem().toString());
             parray.add(spinner2[i].getSelectedItem().toString());
             qarray.add(edt[i].getText().toString());
             rarray.add(rates[i].getText().toString());
             tarray.add(amount[i].getText().toString());
         }
-        // JSONArray jsArray = new JSONArray(carray)
-        if(!TextUtils.isEmpty(edt_val) && Integer.parseInt(edt_val)!=0){
-            if(!curreny.equals("Currency")) {
-                if(pros.equals("cash") || pros.equals("card")) {
+        //if(!TextUtils.isEmpty(edt_val) && Integer.parseInt(edt_val)!=0){
+          //  if(!curreny.equals("Currency")) {
+               // if(pros.equals("cash") || pros.equals("card")) {
                     if(!name.isEmpty()){
-
                             Boolean RR=check_radiogroup();
                             if(RR){
-                                p1.setVisibility(View.VISIBLE);
-                                button.setBackground(ContextCompat.getDrawable(PlaceOrderActivity.this, R.drawable.login_2));
-                                button.setText("Processing .....");
-                                getresult("https://www.orientexchange.in/bankagent/rbuycash.php",email,carray,parray,qarray,tarray,rarray,name,num,Total_Amount,door_add,pin,Branch,delivery_type);
+                                AlertDialog.Builder alert = new AlertDialog.Builder(PlaceOrderActivity.this);
+                                alert.setTitle("");
+                                alert.setMessage("Service charges of \u20B9 50/- and GST will be applied on final invoice \n GST slab : \n  0 to 25000 => \u20B9 45 \n 25001 to 100000 => 0.18% \n 100001 to 1000000 =>\u20B9 180+0.09% (of the amount exceeding \u20B9 1lakh) \n above 1000000 =>\u20B9 990+0.018% (of the amount exceeding \u20B9 10lakh)  ");
+                                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        p1.setVisibility(View.VISIBLE);
+                                        button.setBackground(ContextCompat.getDrawable(PlaceOrderActivity.this, R.drawable.login_2));
+                                        button.setText("Processing .....");
+                                        getresult("https://www.orientexchange.in/bankagent/rbuycash.php",email,carray,parray,qarray,tarray,rarray,name,num,Total_Amount,door_add,pin,Branch,delivery_type);
+                                    }
+                                });
+                              /*  alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        // Canceled.
+
+                                    }
+                                }); */
+                                alert.show();
                             }else{
                                 AlertDialog alertDialog = new AlertDialog.Builder(PlaceOrderActivity.this).create();
                                 alertDialog.setTitle("Login Status");
                                 alertDialog.setMessage("Please Provide Customer details!"); alertDialog.show();
                             }
-
                     }else {
                         cname.setError("Enter customer name");
                     }
-                }else {
+               /* }else {
                     ((TextView)spinner2[Count].getSelectedView()).setError("Select Product");
                 }
             }else {
@@ -737,7 +777,7 @@ LinearLayout lc;
             }
         }else {
             edt[Count].setError("Enter Quantity");
-        }
+        } */
     }
 
     //this method is actually fetching the json string

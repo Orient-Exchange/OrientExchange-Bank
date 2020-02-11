@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/swipe_refresh_layout"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Sell_placeActivity"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:showIn="@layout/app_bar_sell_place">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/listViewName">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +26,8 @@
         <RadioGroup
             android:checkedButton="@+id/offer"
             android:id="@+id/toggle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="30dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
@@ -58,7 +66,148 @@
                 android:text="Referal"
                 android:textColor="#fff" />
         </RadioGroup>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_weight=".5"
+            android:layout_gravity="center"
+            android:src="@drawable/icons_refresh"
+            android:onClick="refresh"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"/>
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1.5">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customer_details"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Customer Details"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:background="@color/colorlight"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18dp" />
+                <View style="@style/Divider_horizantal" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioGroup
+                            android:orientation="horizontal"
+                            android:padding="5dp"
+                            android:layout_width="match_parent">
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:id="@+id/door_select"
+                                android:onClick="door_func"
+                                android:text="Door Delivery" />
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:id="@+id/branch_select"
+                                android:layout_marginLeft="5dp"
+                                android:onClick="branch_func"
+                                android:text="Orient branch" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:id="@+id/bank_select"
+                                android:layout_marginLeft="5dp"
+                                android:onClick="bank_func"
+                                android:text="Bank branch"/>
+                        </RadioGroup>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/place_layout">
+
+                        <EditText
+                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pname"
+                            android:inputType="textAutoComplete"
+                            android:hint="Cutomer Name"></EditText>
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:id="@+id/pnum"
+                            android:maxLength="10"
+                            android:hint="Contact Number" ></EditText>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/branch_add"
+                        android:visibility="invisible"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/place_layout">
+
+                        <TextView
+                            android:id="@+id/branch_pick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textSize="14dp"></TextView>
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/door_add1"
+                        android:visibility="invisible"
+                        android:background="@color/place_layout">
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/door_add"
+                            android:layout_weight="1"
+                            android:inputType="textImeMultiLine"
+                            android:hint="Enter Address"></EditText>
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/pincode"
+                            android:inputType="number"
+                            android:hint="Enter Pincode"></EditText>
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -76,13 +225,13 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Currency Details"
+                android:text="Currency Details(optional)"
                 android:layout_weight="2"
                 android:textColor="#fff"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textAlignment="gravity"
-                android:textSize="18dp" />
+
+                android:textSize="15dp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -448,138 +597,6 @@
         </LinearLayout>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1.5">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/customer_details"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Customer Details"
-                    android:textAlignment="center"
-                    android:background="@color/colorlight"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="18dp" />
-                <View style="@style/Divider_horizantal" />
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp">
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <RadioGroup
-                            android:orientation="horizontal"
-                            android:padding="5dp"
-                            android:layout_width="match_parent">
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/door_select"
-                                android:onClick="door_func"
-                                android:text="Door Delivery" />
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/branch_select"
-                                android:layout_marginLeft="5dp"
-                                android:onClick="branch_func"
-                                android:text="Orient branch" />
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:id="@+id/bank_select"
-                                android:layout_marginLeft="5dp"
-                                android:onClick="bank_func"
-                                android:text="Bank branch"/>
-                        </RadioGroup>
-                    </TableRow>
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/place_layout">
-
-                        <EditText
-                            android:layout_height="match_parent"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:id="@+id/pname"
-                            android:inputType="textAutoComplete"
-                            android:hint="Cutomer Name"></EditText>
-                        <EditText
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:inputType="number"
-                            android:id="@+id/pnum"
-                            android:maxLength="10"
-                            android:hint="Contact Number" ></EditText>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/branch_add"
-                        android:visibility="invisible"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/place_layout">
-
-                        <TextView
-                            android:id="@+id/branch_pick"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textSize="14dp"></TextView>
-
-                    </TableRow>
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/door_add1"
-                        android:visibility="invisible"
-                        android:background="@color/place_layout">
-
-                        <EditText
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/door_add"
-                            android:layout_weight="1"
-                            android:inputType="textImeMultiLine"
-                            android:hint="Enter Address"></EditText>
-
-                        <EditText
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:id="@+id/pincode"
-                            android:inputType="number"
-                            android:hint="Enter Pincode"></EditText>
-
-                    </TableRow>
-
-                </TableLayout>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -612,6 +629,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+
     </LinearLayout>
 
 </LinearLayout>
+</RelativeLayout>

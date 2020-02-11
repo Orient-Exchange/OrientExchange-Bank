@@ -18,21 +18,75 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thank you!"
-        android:textSize="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        android:text="Thank you! For placing order."
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/dis_msg"
+        android:text="Do you need confirmation call back?"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textSize="20dp" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dis_btn"
+        android:layout_marginBottom="30dp">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:onClick="mail_send"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#16A085"/>
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#D86A0A"
+        android:layout_marginRight="10dp"
+        android:text="No"/> -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#D86A0A"
+        android:onClick="disable_msg"
+        android:text="Disable this message"/>
+    </TableRow>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:layout_gravity="center"
+
+        android:layout_marginTop="20dp"
         android:gravity="center"
+        android:text="Please rate and review us... "
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="30dp"
-        android:text="Transaction Completed Successfully...."
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        android:gravity="center"
+        android:onClick="Review"
+        android:text="click here"
+        android:textColor="#2874A6"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textSize="20dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -46,21 +100,20 @@
         android:id="@+id/t1"
         android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="order_func"
-                    android:src="@drawable/icons_view_more" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="order_func"
+            android:src="@drawable/icons_view_more" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="View Order details"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="View Order details"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </LinearLayout>

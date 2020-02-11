@@ -331,13 +331,13 @@ public class BuyhistoryActivity extends AppCompatActivity implements NavigationV
                             //  tv1.setGravity(Gravity.CENTER);tv2.setGravity(Gravity.CENTER);tv3.setGravity(Gravity.CENTER);tv4.setGravity(Gravity.CENTER);
                             //   ll.addView(row,j);*/
                             tv1.setText(String.valueOf(j + 1));
-                            tv5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icons_eye_3, 0, 0, 0);
+                            tv5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icons_eye_4, 0, 0, 0);
                             tv1.setId(j+1);
                             tv2.setText(String.valueOf(orderNum));
                             tv3.setText(String.valueOf(type));
                             tv4.setText(String.valueOf(submitted));
 
-                            tv1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+                            tv1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                             tv1.setTextColor(Color.WHITE);
                             tv5.setTextColor(Color.WHITE);
                             tv5.setOnClickListener(new View.OnClickListener() {
@@ -358,11 +358,11 @@ public class BuyhistoryActivity extends AppCompatActivity implements NavigationV
                                 }
                             });
 
-                            tv2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+                            tv2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                             tv2.setTextColor(Color.WHITE);
-                            tv3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+                            tv3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                             tv3.setTextColor(Color.WHITE);
-                            tv4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+                            tv4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                             tv4.setTextColor(Color.WHITE);
 
                             // tv2.setBackgroundResource(R.drawable.currencytext);
